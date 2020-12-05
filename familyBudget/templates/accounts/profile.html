@@ -4,6 +4,31 @@
 
 {% block content %}
 <h1>
-    {{ user.username }}'s profile
+    {{ user.get_full_name }} (@{{user.username}})
 </h1>
+{% with profile=user.profile %}
+    {% if profile  %}
+        <h2>
+            Persona: {{ profile.persona | default:"" }}
+        </h2>
+        <div>
+            Bio: {{ profile.bio | default:"" }}
+        </div>
+        <div>
+            {% with website=profile.website|default:"" %}
+                Website: <a href="{{website}}">{{ website }}</a>
+            {% endwith %}
+        </div>
+        <br>
+        <div>
+            Interests:
+            {% for interest in profile.interests.all %}
+                <span>
+                    {{ interest.name }}{% if not forloop.last %}, {% endif %}
+                </span>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
 {% endblock %}

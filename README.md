@@ -27,3 +27,18 @@ Make migrations and apply new migrations
 python manage.py makemigrations
 python manage.py migrate 
 ```
+
+Build project with docker
+```
+make build
+```
+
+Run webserver in docker
+```
+make compose-start
+```
+
+Make migrations inside docker running with compose
+```
+make compose-manage-py cmd="makemigrations"
+```
